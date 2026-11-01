@@ -1,0 +1,965 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gabriel Lau">
+<meta property="og:description" content="Infraestrutura, monitoramento e suporte técnico.">
+<meta property="og:url" content="https://gabriellau.pages.dev/">
+<meta name="theme-color" content="#070b16">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2.5C16 2.5 6 14.5 6 20.5a10 10 0 0 0 20 0C26 14.5 16 2.5 16 2.5z' fill='%23142036'/%3E%3Cpath d='M11.2 21.5a5 5 0 0 0 4.8 4' stroke='%23e48db4' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Gabriel Lau</title>
+<meta name="description" content="Gabriel Lau: infraestrutura, monitoramento e suporte técnico.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Martian+Mono:wght@400;500&family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+:root {
+/* Layout: an interactive inkwell opens the page; below it, a notebook page with a margin column for section names and a writing column for the content. */
+--paper: #f1f3f1;
+--ink: #14203a;
+--ink-soft: #4b5770;
+--rule: #cbd3da;
+--sheen: #9b2c5d;
+--teal: #1d6866;
+--sepia: #7d5a36;
+--well: #070b16;
+--well-text: #eef1f5;
+--well-soft: #a9b3c7;
+--well-accent: #e48db4;
+--swatch-paper: #f6f6f1;
+--shadow: rgba(14, 22, 40, 0.3);
+--grain: 0.6;
+--font-display: "Bricolage Grotesque", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+--font-body: "Spectral", Georgia, "Times New Roman", serif;
+--font-mono: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+:root:not([data-theme="light"]) {
+--paper: #0b1121; --ink: #e8ebf2; --ink-soft: #a6b0c4; --rule: #263149;
+--sheen: #e690b8; --teal: #62c2b9; --sepia: #d2ad7d;
+--well: #04070f; --well-text: #eef1f5; --well-soft: #a9b3c7; --well-accent: #e48db4;
+--swatch-paper: #eceee8; --shadow: rgba(0, 0, 0, 0.55); --grain: 0;
+color-scheme: dark;
+}
+}
+:root[data-theme="dark"] {
+--paper: #0b1121; --ink: #e8ebf2; --ink-soft: #a6b0c4; --rule: #263149;
+--sheen: #e690b8; --teal: #62c2b9; --sepia: #d2ad7d;
+--well: #04070f; --well-text: #eef1f5; --well-soft: #a9b3c7; --well-accent: #e48db4;
+--swatch-paper: #eceee8; --shadow: rgba(0, 0, 0, 0.55); --grain: 0;
+color-scheme: dark;
+}
+html { background: var(--well); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+background: var(--paper);
+color: var(--ink);
+font-family: var(--font-body);
+font-size: 1.0625rem;
+line-height: 1.62;
+-webkit-font-smoothing: antialiased;
+text-rendering: optimizeLegibility;
+}
+::selection { background: var(--sheen); color: var(--paper); }
+a {
+color: inherit;
+text-decoration-line: underline;
+text-decoration-color: var(--sheen);
+text-decoration-thickness: 1px;
+text-underline-offset: 0.22em;
+}
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--sheen); outline-offset: 3px; border-radius: 2px; }
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.wrap {
+padding-left: max(16px, env(safe-area-inset-left, 0px));
+padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.inner { max-width: 72rem; margin-inline: auto; padding-inline: clamp(0px, 3vw, 2.5rem); }
+/* The inkwell */
+.hero {
+position: relative;
+height: clamp(560px, 86vh, 820px);
+background: var(--well);
+color: var(--well-text);
+overflow: hidden;
+isolation: isolate;
+}
+.hero.no-gl {
+background:
+radial-gradient(70% 55% at 72% 34%, rgba(176, 58, 114, 0.22), transparent 62%),
+radial-gradient(55% 45% at 28% 66%, rgba(46, 143, 140, 0.18), transparent 60%),
+radial-gradient(40% 30% at 55% 50%, rgba(185, 138, 62, 0.12), transparent 70%),
+var(--well);
+}
+.hero.no-gl #well { display: none; }
+#well { position: absolute; inset: 0; width: 100%; height: 100%; display: block; z-index: -1; touch-action: pan-y; }
+.hero-wrap { height: 100%; }
+.hero-inner { height: 100%; display: grid; grid-template-rows: auto 1fr auto; padding-block: 1.6rem 7rem; }
+.hero-nav {
+display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem 1.6rem;
+font-family: var(--font-display); font-variation-settings: "opsz" 14; font-weight: 500; font-size: 0.95rem;
+}
+.hero-nav a { color: var(--well-soft); text-decoration: none; }
+.hero-nav a:hover, .hero-nav a:focus-visible { color: var(--well-text); }
+.hero-main { align-self: end; padding-bottom: 1.6rem; min-width: 0; }
+.name {
+margin: 0;
+display: flex; flex-direction: column;
+font-family: var(--font-display);
+font-weight: 800;
+font-variation-settings: "opsz" 12, "wdth" 82;
+font-size: clamp(4.4rem, 15.5vw, 13.5rem);
+line-height: 0.8;
+letter-spacing: -0.04em;
+color: var(--well-text);
+text-shadow: 0 0 28px var(--well), 0 0 70px var(--well);
+}
+.name span { display: block; }
+.name span + span { padding-left: 0.6em; }
+.tagline {
+margin: 1.5rem 0 0; max-width: 24em;
+font-style: italic; font-size: clamp(1.15rem, 2.1vw, 1.55rem); line-height: 1.35;
+color: var(--well-soft); text-shadow: 0 0 18px var(--well), 0 0 40px var(--well);
+}
+.hero-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1.2rem 2rem; }
+.hint { margin: 0; font-style: italic; font-size: 0.95rem; color: var(--well-soft); }
+.hint-touch { display: none; }
+@media (hover: none) { .hint-hover { display: none; } .hint-touch { display: inline; } }
+.console { font-family: var(--font-mono); font-size: 0.74rem; line-height: 1.8; color: var(--well-soft); }
+.console p { margin: 0; }
+.console .out { color: var(--well-text); padding-left: 1.5em; }
+.console .pr { color: var(--well-accent); }
+.caret {
+display: inline-block; width: 0.55em; height: 1.05em; vertical-align: -0.2em;
+background: var(--well-text); animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
+@media (max-width: 640px) {
+.hero-nav a:not([href="#contato"]) { display: none; }
+.hero-inner { padding-block: 1.1rem 6.4rem; }
+.console { font-size: 0.68rem; }
+}
+/* The notebook page */
+.paper { position: relative; isolation: isolate; }
+.paper::before {
+content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+opacity: var(--grain); mix-blend-mode: multiply;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .12 0 0 0 0 .22 0 0 0 .1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.sec {
+--mc: 10.5rem;
+--gap: clamp(1.5rem, 4vw, 4rem);
+position: relative;
+display: grid;
+grid-template-columns: var(--mc) minmax(0, 1fr);
+column-gap: var(--gap);
+padding-block: clamp(3rem, 7vw, 5.5rem);
+scroll-margin-top: 1rem;
+}
+.sec::before {
+content: ""; position: absolute; top: 0; bottom: 0; width: 1px;
+left: calc(var(--mc) + var(--gap) / 2); background: var(--rule);
+}
+.sec-label {
+margin: 0; align-self: start; padding-top: 0.25rem;
+position: sticky; top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+font-family: var(--font-body); font-style: italic; font-weight: 400; font-size: 1.1rem; line-height: 1.3;
+color: var(--ink-soft);
+}
+.sec-body { min-width: 0; }
+.sec-body > p { max-width: 34em; margin: 0 0 1.1rem; }
+@media (max-width: 760px) {
+.sec { grid-template-columns: minmax(0, 1fr); row-gap: 1.1rem; }
+.sec::before { display: none; }
+.sec-label { position: static; }
+}
+.lede { font-size: clamp(1.4rem, 2.6vw, 1.95rem); line-height: 1.38; text-wrap: pretty; }
+.sec-body > p.lede { max-width: 21em; margin-bottom: 1.8rem; }
+/* Timeline, drawn to scale from 2016 to 2027 */
+.tl { margin: 0 0 3.75rem; }
+.tl-rows { position: relative; display: grid; gap: 1rem; padding-top: 1.8rem; }
+.tl-name { position: relative; height: 1.45rem; }
+.tl-name span {
+position: absolute; left: calc(var(--from) * 100%); white-space: nowrap;
+font-family: var(--font-display); font-variation-settings: "opsz" 14; font-weight: 600; font-size: 0.92rem;
+}
+.tl-name.end span { left: auto; right: calc((1 - var(--to)) * 100%); }
+.tl-track { position: relative; height: 16px; }
+.tl-track::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--rule); }
+.tl-bar {
+position: absolute; top: 2px; bottom: 2px;
+left: calc(var(--from) * 100%);
+width: max(7px, calc((var(--to) - var(--from)) * 100%));
+background: var(--c); border-radius: 10px 5px 7px 12px; filter: url(#rough);
+}
+.tl-now { position: absolute; top: 0; bottom: 0; left: calc(var(--now) * 100%); border-left: 1px dashed var(--sheen); }
+.tl-now span { position: absolute; top: -0.1rem; right: 0.4rem; font-style: italic; font-size: 0.85rem; color: var(--sheen); white-space: nowrap; }
+.tl-axis { position: relative; height: 1.5rem; margin-top: 0.8rem; font-size: 0.82rem; color: var(--ink-soft); font-variant-numeric: tabular-nums lining-nums; }
+.tl-axis span { position: absolute; left: calc(var(--x) * 100%); transform: translateX(-50%); }
+.tl-axis span:first-child { transform: none; }
+@media (max-width: 640px) { .tl-axis .odd { display: none; } }
+.roles { list-style: none; margin: 0; padding: 0; display: grid; gap: 2.75rem; }
+.role { display: grid; grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 0.9rem 2.5rem; }
+.role h3 {
+margin: 0; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90;
+font-weight: 700; font-size: 1.35rem; line-height: 1.15; text-wrap: balance;
+}
+.role .org { margin: 0.4rem 0 0; font-style: italic; color: var(--ink-soft); }
+.role .when { margin: 0.1rem 0 0; font-size: 0.95rem; color: var(--ink-soft); font-variant-numeric: tabular-nums lining-nums; }
+.role ul { margin: 0; padding-left: 1.1rem; max-width: 36em; }
+.role li { margin: 0 0 0.35rem; }
+.role li::marker { color: var(--sheen); }
+@media (max-width: 760px) { .role { grid-template-columns: minmax(0, 1fr); } }
+/* Tools, grouped by what Gabriel does with them */
+.verbs { margin: 0; display: grid; gap: 1.9rem; }
+.verb { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 0.35rem 2rem; align-items: baseline; }
+.verb dt {
+font-family: var(--font-display); font-variation-settings: "opsz" 12, "wdth" 84;
+font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.75rem); line-height: 1; letter-spacing: -0.025em;
+}
+.verb dd { margin: 0; font-size: 1.15rem; max-width: 32em; }
+@media (max-width: 640px) { .verb { grid-template-columns: minmax(0, 1fr); } }
+/* Projects as ink swatch cards */
+.cards { list-style: none; margin: 0 0 3.75rem; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.4rem, 3vw, 2.4rem); }
+.card { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+.sw {
+display: block; width: 100%; max-width: 100%; aspect-ratio: 5 / 3;
+background: var(--swatch-paper); border-radius: 2px;
+box-shadow: 0 1px 1px var(--shadow), 0 16px 30px -24px var(--shadow);
+}
+.card:nth-child(3n + 1) .sw { transform: rotate(-0.6deg); }
+.card:nth-child(3n + 2) .sw { transform: rotate(0.5deg); }
+.card:nth-child(3n) .sw { transform: rotate(-0.3deg); }
+.card h3 {
+margin: 0.75rem 0 0; font-family: var(--font-display); font-variation-settings: "opsz" 24, "wdth" 90;
+font-weight: 700; font-size: 1.3rem; line-height: 1.15;
+}
+.card p { margin: 0; color: var(--ink-soft); }
+.card a { font-size: 0.95rem; overflow-wrap: anywhere; }
+@media (max-width: 760px) { .cards { grid-template-columns: minmax(0, 1fr); } }
+.sub { margin: 0 0 1.2rem; font-family: var(--font-body); font-style: italic; font-weight: 400; font-size: 1.1rem; color: var(--ink-soft); }
+.sites { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 1.75rem); }
+.site { display: flex; flex-direction: column; gap: 0.65rem; color: var(--ink); text-decoration: none; }
+.site .sw { aspect-ratio: 4 / 3; transition: transform 0.25s ease; }
+.site:hover .sw, .site:focus-visible .sw { transform: translateY(-3px) rotate(-0.4deg); }
+.site span {
+font-family: var(--font-display); font-variation-settings: "opsz" 14; font-weight: 600; font-size: 0.98rem;
+overflow-wrap: break-word; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.22em;
+}
+.site:hover span, .site:focus-visible span { text-decoration-color: var(--sheen); }
+@media (max-width: 900px) { .sites { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .site .sw { transition: none; } }
+/* Education */
+.facts { margin: 0; display: grid; gap: 1.2rem; }
+.facts div { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); gap: 0.2rem 2rem; }
+.facts dt { font-family: var(--font-display); font-variation-settings: "opsz" 14; font-weight: 600; }
+.facts dd { margin: 0; max-width: 34em; }
+@media (max-width: 640px) { .facts div { grid-template-columns: minmax(0, 1fr); } }
+/* Contact */
+.big {
+margin: 0 0 2.4rem; font-family: var(--font-display); font-weight: 800;
+font-variation-settings: "opsz" 12, "wdth" 80;
+font-size: clamp(3rem, 9vw, 7.2rem); line-height: 0.86; letter-spacing: -0.04em; text-wrap: balance;
+}
+.contacts { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.2rem; }
+.contacts li { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 0.2rem 1.25rem; align-items: baseline; }
+.contacts .k { font-style: italic; color: var(--ink-soft); }
+.contacts .v { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; min-width: 0; font-size: 1.2rem; overflow-wrap: anywhere; }
+.copy {
+font: inherit; font-family: var(--font-display); font-variation-settings: "opsz" 14;
+font-size: 0.88rem; font-weight: 600; color: var(--ink);
+background: transparent; border: 1px solid var(--rule); border-radius: 999px;
+padding: 0.2rem 0.85rem; cursor: pointer;
+}
+.copy:hover { border-color: var(--sheen); }
+.copied { font-size: 0.9rem; font-style: italic; color: var(--sheen); }
+@media (max-width: 520px) { .contacts li { grid-template-columns: minmax(0, 1fr); } }
+.foot { background: var(--well); color: var(--well-soft); }
+.foot .inner { padding-block: 3rem 3.5rem; display: grid; gap: 1rem; }
+.foot p { margin: 0; max-width: 36em; font-size: 0.98rem; }
+.foot em { color: var(--well-text); }
+.foot .copyright { font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<svg class="defs" aria-hidden="true" focusable="false">
+<filter id="rough" x="-4%" y="-60%" width="108%" height="220%">
+<feTurbulence type="fractalNoise" baseFrequency="0.03 0.55" numOctaves="2" seed="8" result="n"/>
+<feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+</filter>
+</svg>
+<header class="hero" id="topo">
+<canvas id="well" aria-hidden="true"></canvas>
+<div class="wrap hero-wrap">
+<div class="inner hero-inner">
+<nav class="hero-nav" aria-label="Seções da página">
+<a href="#sobre">Sobre</a>
+<a href="#trajetoria">Trajetória</a>
+<a href="#ferramentas">Ferramentas</a>
+<a href="#projetos">Projetos</a>
+<a href="#contato">Contato</a>
+</nav>
+<div class="hero-main">
+<h1 class="name"><span>Gabriel</span> <span>Lau</span></h1>
+<p class="tagline">Infraestrutura, monitoramento e suporte técnico.</p>
+</div>
+<div class="hero-foot">
+<p class="hint"><span class="hint-hover">Passe o cursor pela tinta.</span><span class="hint-touch">Toque e arraste na tinta.</span></p>
+<div class="console" role="note" aria-label="Resumo rápido">
+<p><span class="pr">$</span> whoami</p>
+<p class="out">gabriel lau, analista de monitoramento</p>
+<p><span class="pr">$</span> stack</p>
+<p class="out">zabbix grafana meraki fortigate glpi</p>
+<p><span class="pr">$</span> <span class="caret" aria-hidden="true"></span></p>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="paper">
+<div class="wrap">
+<div class="inner">
+<section class="sec" id="sobre" aria-labelledby="h-sobre">
+<h2 class="sec-label" id="h-sobre">Sobre</h2>
+<div class="sec-body">
+<p class="lede">Sou analista de monitoramento na Nereidas IT. Acompanho infraestrutura e redes com Zabbix, Grafana e Meraki Dashboard e cuido de chamados, SLAs e mudanças no GLPI.</p>
+<p>Antes, passei dois anos em Hosting Operations na Equinix, administrando Windows Server, Active Directory e Linux em data center e atendendo clientes de outros países em inglês. Também faço suporte de TI por conta própria, remoto e presencial, e curso Ciência da Computação.</p>
+<p>No tempo livre, construo coisas: uma extensão que automatiza chamados no GLPI, sistemas de monitoramento com CLPs, um dispositivo IoT e alguns sites.</p>
+</div>
+</section>
+<section class="sec" id="trajetoria" aria-labelledby="h-trajetoria">
+<h2 class="sec-label" id="h-trajetoria">Trajetória</h2>
+<div class="sec-body">
+<figure class="tl" aria-label="Linha do tempo de 2016 até hoje: suporte autônomo desde 2016, Equinix de junho de 2023 a junho de 2025 e Nereidas IT desde julho de 2026.">
+<div class="tl-rows" style="--now: 0.9848">
+<div class="tl-row">
+<div class="tl-name end" style="--from: 0.9545; --to: 0.9848"><span>Nereidas IT</span></div>
+<div class="tl-track"><span class="tl-bar" style="--from: 0.9545; --to: 0.9848; --c: var(--ink)"></span></div>
+</div>
+<div class="tl-row">
+<div class="tl-name" style="--from: 0.6742"><span>Equinix</span></div>
+<div class="tl-track"><span class="tl-bar" style="--from: 0.6742; --to: 0.8636; --c: var(--teal)"></span></div>
+</div>
+<div class="tl-row">
+<div class="tl-name" style="--from: 0"><span>Suporte autônomo</span></div>
+<div class="tl-track"><span class="tl-bar" style="--from: 0; --to: 0.9848; --c: var(--sepia)"></span></div>
+</div>
+<div class="tl-now" aria-hidden="true"><span>hoje</span></div>
+</div>
+<div class="tl-axis" aria-hidden="true">
+<span style="--x: 0">2016</span>
+<span class="odd" style="--x: 0.0909">2017</span>
+<span style="--x: 0.1818">2018</span>
+<span class="odd" style="--x: 0.2727">2019</span>
+<span style="--x: 0.3636">2020</span>
+<span class="odd" style="--x: 0.4545">2021</span>
+<span style="--x: 0.5455">2022</span>
+<span class="odd" style="--x: 0.6364">2023</span>
+<span style="--x: 0.7273">2024</span>
+<span class="odd" style="--x: 0.8182">2025</span>
+<span style="--x: 0.9091">2026</span>
+</div>
+</figure>
+<ol class="roles">
+<li class="role">
+<div>
+<h3>Analista de Monitoramento</h3>
+<p class="org">Nereidas IT</p>
+<p class="when">jul/2026 – hoje</p>
+</div>
+<ul>
+<li>Monitoramento de infraestrutura e redes com Zabbix, Grafana e Meraki Dashboard, com melhoria contínua do ambiente.</li>
+<li>Administração de Cisco Meraki MX, FortiGate e equipamentos Huawei, com regras e políticas de conectividade.</li>
+<li>Análise de tráfego e desempenho (DNS, DHCP, FTP) e suporte a autenticação e controle de acesso com Active Directory.</li>
+<li>Gestão de incidentes e chamados no GLPI, acompanhamento de SLAs, relatórios de disponibilidade e execução de GMUDs.</li>
+</ul>
+</li>
+<li class="role">
+<div>
+<h3>Estagiário de Infraestrutura (Hosting Operations)</h3>
+<p class="org">Equinix</p>
+<p class="when">jun/2023 – jun/2025</p>
+</div>
+<ul>
+<li>Monitoramento de ambientes de hosting com Zabbix e Datadog, com tratamento de alertas e incidentes.</li>
+<li>Administração de Windows Server (Active Directory, Hyper-V) e Linux (CentOS, Red Hat) em data center.</li>
+<li>Automação de rotinas operacionais com PowerShell e Shell Script (Bash).</li>
+<li>Suporte a redes com switches Dell e Juniper e firewalls FortiGate e pfSense.</li>
+<li>Atendimento a clientes internacionais em inglês.</li>
+</ul>
+</li>
+<li class="role">
+<div>
+<h3>Técnico de Suporte de TI</h3>
+<p class="org">Autônomo</p>
+<p class="when">2016 – hoje</p>
+</div>
+<ul>
+<li>Suporte técnico remoto e presencial a pessoas físicas e pequenas empresas, do diagnóstico à solução.</li>
+<li>Instalação e manutenção de computadores, redes locais e Wi-Fi, incluindo backup e remoção de malware.</li>
+</ul>
+</li>
+</ol>
+</div>
+</section>
+<section class="sec" id="ferramentas" aria-labelledby="h-ferramentas">
+<h2 class="sec-label" id="h-ferramentas">Ferramentas</h2>
+<div class="sec-body">
+<dl class="verbs">
+<div class="verb"><dt>Monitoro</dt><dd>Zabbix, Grafana, Datadog e Meraki Dashboard.</dd></div>
+<div class="verb"><dt>Administro</dt><dd>Cisco Meraki MX, FortiGate, pfSense, equipamentos Huawei, switches Dell e Juniper, Windows Server, Active Directory, Linux, VMware vSphere e Hyper-V.</dd></div>
+<div class="verb"><dt>Automatizo</dt><dd>PowerShell, Bash, Docker e SQL (PostgreSQL e MySQL).</dd></div>
+<div class="verb"><dt>Organizo</dt><dd>Chamados no GLPI, SLAs e GMUD (gestão de mudanças).</dd></div>
+<div class="verb"><dt>Construo</dt><dd>Sites no Cloudflare Pages, uma extensão para o GLPI e dispositivos com ESP32 e Arduino.</dd></div>
+</dl>
+</div>
+</section>
+<section class="sec" id="projetos" aria-labelledby="h-projetos">
+<h2 class="sec-label" id="h-projetos">Projetos</h2>
+<div class="sec-body">
+<ul class="cards">
+<li class="card" data-ink="#1d2d50" data-sheen="#c0407a" data-seed="3">
+<canvas class="sw" aria-hidden="true"></canvas>
+<h3>GLPI Planejador</h3>
+<p>Extensão para Chrome e Edge que move chamados novos para “Em atendimento (planejado)” no GLPI, com travas contra ações indevidas.</p>
+<a href="https://github.com/zezim7/glpi-automacao">github.com/zezim7/glpi-automacao</a>
+</li>
+<li class="card" data-ink="#13585a" data-sheen="#b84a3c" data-seed="11">
+<canvas class="sw" aria-hidden="true"></canvas>
+<h3>Monitoramento industrial</h3>
+<p>Monitoramento de equipamentos com integração a CLPs, desenvolvido com apoio de IA.</p>
+</li>
+<li class="card" data-ink="#5c1a33" data-sheen="#a8963e" data-seed="27">
+<canvas class="sw" aria-hidden="true"></canvas>
+<h3>Lembrete de medicação</h3>
+<p>Dispositivo IoT com interface web, buzzer, LED, botão físico e avisos pelo Telegram.</p>
+</li>
+</ul>
+<h3 class="sub">Sites no ar</h3>
+<ul class="sites">
+<li><a class="site" href="https://hawkthunder.pages.dev" data-ink="#1f3d8f" data-sheen="#c8467f" data-seed="5"><canvas class="sw" aria-hidden="true"></canvas><span>hawkthunder<wbr>.pages.dev</span></a></li>
+<li><a class="site" href="https://kativawear.pages.dev" data-ink="#6a2346" data-sheen="#c79a3c" data-seed="8"><canvas class="sw" aria-hidden="true"></canvas><span>kativawear<wbr>.pages.dev</span></a></li>
+<li><a class="site" href="https://quantocustava.pages.dev" data-ink="#2f4a2c" data-sheen="#b4503a" data-seed="14"><canvas class="sw" aria-hidden="true"></canvas><span>quantocustava<wbr>.pages.dev</span></a></li>
+<li><a class="site" href="https://clickforged.pages.dev" data-ink="#5a3a22" data-sheen="#b08a46" data-seed="21"><canvas class="sw" aria-hidden="true"></canvas><span>clickforged<wbr>.pages.dev</span></a></li>
+</ul>
+</div>
+</section>
+<section class="sec" id="formacao" aria-labelledby="h-formacao">
+<h2 class="sec-label" id="h-formacao">Formação</h2>
+<div class="sec-body">
+<dl class="facts">
+<div><dt>Graduação</dt><dd>Bacharelado em Ciência da Computação, Universidade Estácio de Sá (EAD), 2022 – em andamento.</dd></div>
+<div><dt>Cisco (SENAI)</dt><dd>CCNA: Introduction to Networks, Network Security e CyberOps Associate.</dd></div>
+<div><dt>Udemy</dt><dd>Microsoft Windows Server 2019, Microsoft Azure: Infraestrutura e SQL para Análise de Dados.</dd></div>
+<div><dt>Idiomas</dt><dd>Português nativo e inglês fluente (Wise Up English Program).</dd></div>
+</dl>
+</div>
+</section>
+<section class="sec" id="contato" aria-labelledby="h-contato">
+<h2 class="sec-label" id="h-contato">Contato</h2>
+<div class="sec-body">
+<p class="big">Vamos conversar.</p>
+<ul class="contacts">
+<li><span class="k">LinkedIn</span><span class="v"><a href="https://www.linkedin.com/in/gabriel-toledo-lau/">linkedin.com/in/gabriel-toledo-lau</a></span></li>
+<li><span class="k">GitHub</span><span class="v"><a href="https://github.com/zezim7">github.com/zezim7</a></span></li>
+<li><span class="k">E-mail</span><span class="v"><span id="email" data-u="gabriel700520" data-d="hotmail.com"></span><button type="button" class="copy" id="copy-email">Copiar</button><span class="copied" id="copied" role="status" aria-live="polite"></span></span></li>
+</ul>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="foot">
+<div class="wrap">
+<div class="inner">
+<p>Os títulos desta página usam uma fonte com <em>ink traps</em>: pequenos entalhes nas junções das letras que dão espaço para a tinta se espalhar sem borrar o desenho. É mais ou menos o que um bom monitoramento faz pela infraestrutura.</p>
+<p class="copyright">© 2026 Gabriel Lau</p>
+</div>
+</div>
+</footer>
+<script>
+(() => {
+document.documentElement.lang = 'pt-BR';
+const root = document.documentElement;
+const cssVar = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+const hexToRgb = (h) => {
+h = (h || '').replace('#', '').trim();
+if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+const n = parseInt(h, 16) || 0;
+return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+const rgb01 = (h) => hexToRgb(h).map((v) => v / 255);
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+/* E-mail: assembled here so it is not sitting in the page source as plain text */
+(() => {
+const el = document.getElementById('email');
+const btn = document.getElementById('copy-email');
+const out = document.getElementById('copied');
+if (!el || !btn || !out) return;
+const addr = el.dataset.u + '@' + el.dataset.d;
+el.textContent = addr;
+let timer;
+const say = (msg) => {
+out.textContent = msg;
+clearTimeout(timer);
+timer = setTimeout(() => { out.textContent = ''; }, 2800);
+};
+const selectIt = () => {
+const range = document.createRange();
+range.selectNodeContents(el);
+const sel = getSelection();
+sel.removeAllRanges();
+sel.addRange(range);
+say('Endereço selecionado para copiar');
+};
+btn.addEventListener('click', () => {
+try {
+const p = navigator.clipboard && navigator.clipboard.writeText(addr);
+if (p) p.then(() => say('E-mail copiado'), selectIt); else selectIt();
+} catch (e) { selectIt(); }
+});
+})();
+/* Ink swatches: diluted body, darker pooled rim and the sheen that saturated inks leave when they dry */
+(() => {
+const rng = (a) => () => {
+a |= 0; a = (a + 0x6d2b79f5) | 0;
+let t = Math.imul(a ^ (a >>> 15), 1 | a);
+t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+};
+const mix = (a, b, t) => {
+const A = hexToRgb(a), B = hexToRgb(b);
+return 'rgb(' + A.map((v, i) => Math.round(v + (B[i] - v) * t)).join(',') + ')';
+};
+const rgba = (h, a) => 'rgba(' + hexToRgb(h).join(',') + ',' + a + ')';
+function draw(cv) {
+const host = cv.closest('[data-ink]');
+if (!host) return;
+const ink = host.dataset.ink, sheen = host.dataset.sheen, seed = Number(host.dataset.seed) || 1;
+const paper = cssVar('--swatch-paper') || '#f6f6f1';
+const w = cv.clientWidth, h = cv.clientHeight;
+if (!w || !h) return;
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+cv.width = Math.round(w * dpr);
+cv.height = Math.round(h * dpr);
+const c = cv.getContext('2d');
+if (!c) return;
+c.setTransform(dpr, 0, 0, dpr, 0, 0);
+c.clearRect(0, 0, w, h);
+const r = rng(seed * 7919);
+const cx = w * (0.47 + r() * 0.06), cy = h * (0.46 + r() * 0.06);
+const rx = w * 0.35, ry = h * 0.29;
+const k = [r(), r(), r(), r()].map((v) => v * 6.2832);
+const tilt = (r() - 0.5) * 0.25;
+const path = new Path2D();
+const N = 200;
+for (let i = 0; i <= N; i++) {
+const t = (i / N) * 6.2832;
+const wob = 1 + 0.08 * Math.sin(2 * t + k[0]) + 0.05 * Math.sin(5 * t + k[1]) + 0.022 * Math.sin(11 * t + k[2]) + 0.01 * Math.sin(27 * t + k[3]);
+const sag = 1 + 0.14 * Math.max(0, Math.sin(t));
+const x = Math.cos(t) * rx * wob, y = Math.sin(t) * ry * wob * sag;
+const px = cx + x * Math.cos(tilt) - y * Math.sin(tilt), py = cy + x * Math.sin(tilt) + y * Math.cos(tilt);
+if (i) path.lineTo(px, py); else path.moveTo(px, py);
+}
+path.closePath();
+const g = c.createRadialGradient(cx - rx * 0.1, cy - ry * 0.15, ry * 0.2, cx, cy + ry * 0.1, Math.max(rx, ry) * 1.05);
+g.addColorStop(0, mix(ink, paper, 0.34));
+g.addColorStop(0.65, mix(ink, paper, 0.18));
+g.addColorStop(1, mix(ink, paper, 0.05));
+c.fillStyle = g;
+c.fill(path);
+c.save();
+c.clip(path);
+c.filter = 'blur(' + Math.max(2, ry * 0.12) + 'px)';
+for (let i = 0; i < 26; i++) {
+c.fillStyle = rgba(ink, 0.06 + r() * 0.07);
+c.beginPath();
+c.arc(cx + (r() - 0.5) * rx * 1.8, cy + (r() - 0.5) * ry * 1.8, ry * (0.15 + r() * 0.35), 0, 6.2832);
+c.fill();
+}
+c.filter = 'blur(' + Math.max(1, ry * 0.05) + 'px)';
+c.lineWidth = ry * 0.24;
+c.strokeStyle = rgba(ink, 0.92);
+c.stroke(path);
+c.filter = 'blur(' + Math.max(2, ry * 0.14) + 'px)';
+c.fillStyle = rgba(ink, 0.5);
+c.beginPath();
+c.ellipse(cx, cy + ry * 1.0, rx * 0.95, ry * 0.4, tilt, 0, 6.2832);
+c.fill();
+c.globalCompositeOperation = 'source-atop';
+c.filter = 'blur(' + Math.max(1, ry * 0.07) + 'px)';
+const sg = c.createLinearGradient(cx - rx * 0.3, cy - ry, cx + rx * 0.5, cy + ry * 1.15);
+sg.addColorStop(0, rgba(sheen, 0));
+sg.addColorStop(0.62, rgba(sheen, 0));
+sg.addColorStop(0.88, rgba(sheen, 0.8));
+sg.addColorStop(1, rgba(sheen, 0.95));
+c.lineWidth = ry * 0.16;
+c.strokeStyle = sg;
+c.stroke(path);
+c.globalCompositeOperation = 'source-over';
+c.filter = 'none';
+c.globalAlpha = 0.07;
+c.fillStyle = paper;
+const specks = Math.round((w * h) / 70);
+for (let i = 0; i < specks; i++) c.fillRect(r() * w, r() * h, 1, 1);
+c.restore();
+}
+const canvases = [...document.querySelectorAll('canvas.sw')];
+const redraw = () => canvases.forEach(draw);
+if ('ResizeObserver' in window) {
+const ro = new ResizeObserver((entries) => entries.forEach((e) => draw(e.target)));
+canvases.forEach((cv) => ro.observe(cv));
+} else {
+addEventListener('resize', redraw);
+}
+redraw();
+})();
+/* The inkwell: a small fluid simulation whose surface is shaded like glossy ink with a thin-film sheen */
+(() => {
+const hero = document.querySelector('.hero');
+const canvas = document.getElementById('well');
+if (!hero || !canvas) return;
+const fail = () => hero.classList.add('no-gl');
+let gl = null;
+try {
+gl = canvas.getContext('webgl2', { alpha: false, antialias: false, depth: false, stencil: false, premultipliedAlpha: false, preserveDrawingBuffer: false, powerPreference: 'high-performance' });
+} catch (e) { gl = null; }
+if (!gl) return fail();
+if (!gl.getExtension('EXT_color_buffer_float') && !gl.getExtension('EXT_color_buffer_half_float')) return fail();
+const HF = gl.HALF_FLOAT;
+const small = Math.min(innerWidth, innerHeight) < 640;
+const SIM = small ? 96 : 128;
+const DYE = small ? 320 : 640;
+const CFG = { velDiss: 0.4, dyeDiss: 0.3, pressure: 0.8, iters: 16, curl: 18, radius: 0.0013, force: 5200 };
+const VS = `#version 300 es
+in vec2 aPos;
+uniform vec2 texel;
+out vec2 vUv, vL, vR, vT, vB;
+void main() {
+vUv = aPos * 0.5 + 0.5;
+vL = vUv - vec2(texel.x, 0.0); vR = vUv + vec2(texel.x, 0.0);
+vT = vUv + vec2(0.0, texel.y); vB = vUv - vec2(0.0, texel.y);
+gl_Position = vec4(aPos, 0.0, 1.0);
+}`;
+const HEAD = `#version 300 es
+precision highp float;
+precision highp sampler2D;
+in vec2 vUv, vL, vR, vT, vB;
+out vec4 o;
+`;
+const SRC = {
+splat: `uniform sampler2D uTarget; uniform float aspect, radius; uniform vec3 color; uniform vec2 point;
+void main() { vec2 p = vUv - point; p.x *= aspect; vec3 s = exp(-dot(p, p) / radius) * color; o = vec4(texture(uTarget, vUv).xyz + s, 1.0); }`,
+ring: `uniform sampler2D uTarget; uniform float aspect, radius, strength; uniform vec2 point;
+void main() { vec2 p = vUv - point; p.x *= aspect; float d = dot(p, p); vec2 dir = p / (sqrt(d) + 1e-4);
+o = vec4(texture(uTarget, vUv).xy + dir * exp(-d / radius) * strength, 0.0, 1.0); }`,
+advect: `uniform sampler2D uVelocity, uSource; uniform vec2 texel; uniform float dt, dissipation;
+void main() { vec2 c = vUv - dt * texture(uVelocity, vUv).xy * texel; o = texture(uSource, c) / (1.0 + dissipation * dt); }`,
+divergence: `uniform sampler2D uVelocity;
+void main() {
+float L = texture(uVelocity, vL).x, R = texture(uVelocity, vR).x, T = texture(uVelocity, vT).y, B = texture(uVelocity, vB).y;
+vec2 C = texture(uVelocity, vUv).xy;
+if (vL.x < 0.0) L = -C.x; if (vR.x > 1.0) R = -C.x; if (vT.y > 1.0) T = -C.y; if (vB.y < 0.0) B = -C.y;
+o = vec4(0.5 * (R - L + T - B), 0.0, 0.0, 1.0); }`,
+curl: `uniform sampler2D uVelocity;
+void main() {
+float L = texture(uVelocity, vL).y, R = texture(uVelocity, vR).y, T = texture(uVelocity, vT).x, B = texture(uVelocity, vB).x;
+o = vec4(0.5 * (R - L - T + B), 0.0, 0.0, 1.0); }`,
+vorticity: `uniform sampler2D uVelocity, uCurl; uniform float curl, dt;
+void main() {
+float L = texture(uCurl, vL).x, R = texture(uCurl, vR).x, T = texture(uCurl, vT).x, B = texture(uCurl, vB).x, C = texture(uCurl, vUv).x;
+vec2 f = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L)); f /= length(f) + 1e-4; f *= curl * C; f.y *= -1.0;
+vec2 v = texture(uVelocity, vUv).xy + f * dt; o = vec4(clamp(v, -1000.0, 1000.0), 0.0, 1.0); }`,
+pressure: `uniform sampler2D uPressure, uDivergence;
+void main() {
+float L = texture(uPressure, vL).x, R = texture(uPressure, vR).x, T = texture(uPressure, vT).x, B = texture(uPressure, vB).x;
+o = vec4((L + R + B + T - texture(uDivergence, vUv).x) * 0.25, 0.0, 0.0, 1.0); }`,
+gradient: `uniform sampler2D uPressure, uVelocity;
+void main() {
+float L = texture(uPressure, vL).x, R = texture(uPressure, vR).x, T = texture(uPressure, vT).x, B = texture(uPressure, vB).x;
+o = vec4(texture(uVelocity, vUv).xy - vec2(R - L, T - B), 0.0, 1.0); }`,
+scale: `uniform sampler2D uTexture; uniform float value;
+void main() { o = value * texture(uTexture, vUv); }`,
+display: `uniform sampler2D uDye; uniform vec2 texel, res; uniform float time, edge;
+uniform vec3 well, paper, sheenA, sheenB, sheenC;
+float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float noise(vec2 p) { vec2 i = floor(p), f = fract(p);
+float a = hash(i), b = hash(i + vec2(1.0, 0.0)), c = hash(i + vec2(0.0, 1.0)), d = hash(i + vec2(1.0, 1.0));
+vec2 w = f * f * (3.0 - 2.0 * f); return mix(mix(a, b, w.x), mix(c, d, w.x), w.y); }
+float fbm(vec2 p) { float v = 0.0, a = 0.5; for (int i = 0; i < 4; i++) { v += a * noise(p); p *= 2.03; a *= 0.5; } return v; }
+float H(vec2 uv) { return 1.0 - exp(-max(texture(uDye, uv).r, 0.0) * 1.25); }
+vec3 sheen(float t) { t = fract(t);
+if (t < 0.3333) return mix(sheenA, sheenB, t * 3.0);
+if (t < 0.6667) return mix(sheenB, sheenC, (t - 0.3333) * 3.0);
+return mix(sheenC, sheenA, (t - 0.6667) * 3.0); }
+void main() {
+vec2 uv = vUv; vec2 d = texel * 1.5;
+float h = H(uv);
+float hl = H(uv - vec2(d.x, 0.0)), hr = H(uv + vec2(d.x, 0.0)), hb = H(uv - vec2(0.0, d.y)), ht = H(uv + vec2(0.0, d.y));
+vec3 n = normalize(vec3((hl - hr) * 3.2, (hb - ht) * 3.2, 1.0));
+vec3 L = normalize(vec3(-0.45, 0.65, 0.62));
+float spec = pow(max(dot(n, normalize(L + vec3(0.0, 0.0, 1.0))), 0.0), 140.0);
+float slope = clamp(1.0 - n.z, 0.0, 1.0);
+vec3 col = well * (1.0 + h * 0.55);
+col += vec3(0.55, 0.62, 0.8) * smoothstep(0.15, 1.0, uv.y) * 0.045;
+float s = smoothstep(0.0015, 0.05, slope);
+col += sheen(h * 0.8 + slope * 5.0 + time * 0.012) * s * 0.5;
+col += spec * vec3(0.93, 0.95, 1.0) * 0.5;
+vec2 q = (uv - vec2(0.5, 0.58)) * vec2(1.0, 1.25);
+col *= 1.0 - dot(q, q) * 0.5;
+float e = edge * (1.0 + (fbm(vec2(uv.x * res.x / res.y * 3.5, time * 0.04)) - 0.5) * 0.8 + h * 0.4);
+float inkMask = smoothstep(e - 0.003, e + 0.003, uv.y);
+float halo = (1.0 - inkMask) * smoothstep(e - edge * 0.9, e, uv.y);
+vec3 under = mix(paper, mix(paper, well, 0.14), halo * halo);
+col = mix(under, col, inkMask);
+col += (hash(uv * res + fract(time) * 17.0) - 0.5) * 0.02;
+o = vec4(clamp(col, 0.0, 1.0), 1.0);
+}`
+};
+const compile = (type, src) => {
+const s = gl.createShader(type);
+gl.shaderSource(s, src);
+gl.compileShader(s);
+if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) || 'shader');
+return s;
+};
+const P = {};
+try {
+const vsh = compile(gl.VERTEX_SHADER, VS);
+for (const [key, src] of Object.entries(SRC)) {
+const p = gl.createProgram();
+gl.attachShader(p, vsh);
+gl.attachShader(p, compile(gl.FRAGMENT_SHADER, HEAD + src));
+gl.bindAttribLocation(p, 0, 'aPos');
+gl.linkProgram(p);
+if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p) || 'link');
+const u = {};
+const count = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+for (let i = 0; i < count; i++) {
+const info = gl.getActiveUniform(p, i);
+u[info.name] = gl.getUniformLocation(p, info.name);
+}
+P[key] = { p, u };
+}
+} catch (e) {
+console.warn('Tinta em modo estático:', e.message);
+return fail();
+}
+const quad = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, quad);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+gl.enableVertexAttribArray(0);
+const canRender = (internal, format) => {
+const t = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, t);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texImage2D(gl.TEXTURE_2D, 0, internal, 4, 4, 0, format, HF, null);
+const f = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, f);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0);
+const ok = gl.checkFramebufferStatus(gl.FRAMEBUFFER) === gl.FRAMEBUFFER_COMPLETE;
+gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+gl.deleteFramebuffer(f);
+gl.deleteTexture(t);
+return ok;
+};
+const F4 = [gl.RGBA16F, gl.RGBA];
+if (!canRender(F4[0], F4[1])) return fail();
+const F2 = canRender(gl.RG16F, gl.RG) ? [gl.RG16F, gl.RG] : F4;
+const F1 = canRender(gl.R16F, gl.RED) ? [gl.R16F, gl.RED] : F2;
+const target = (w, h, fmt, filter) => {
+const tex = gl.createTexture();
+gl.activeTexture(gl.TEXTURE0);
+gl.bindTexture(gl.TEXTURE_2D, tex);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, filter);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, filter);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.texImage2D(gl.TEXTURE_2D, 0, fmt[0], w, h, 0, fmt[1], HF, null);
+const fbo = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
+gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
+gl.viewport(0, 0, w, h);
+gl.clearColor(0, 0, 0, 1);
+gl.clear(gl.COLOR_BUFFER_BIT);
+return {
+fbo, w, h,
+attach(i) { gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, tex); return i; },
+free() { gl.deleteTexture(tex); gl.deleteFramebuffer(fbo); }
+};
+};
+const pair = (w, h, fmt, filter) => {
+let a = target(w, h, fmt, filter), b = target(w, h, fmt, filter);
+return {
+w, h,
+get read() { return a; },
+get write() { return b; },
+swap() { const t = a; a = b; b = t; },
+free() { a.free(); b.free(); }
+};
+};
+const draw = (t) => {
+if (t) { gl.bindFramebuffer(gl.FRAMEBUFFER, t.fbo); gl.viewport(0, 0, t.w, t.h); }
+else { gl.bindFramebuffer(gl.FRAMEBUFFER, null); gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight); }
+gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+};
+const use = (k) => { gl.useProgram(P[k].p); return P[k].u; };
+const f1 = (u, n, v) => { if (u[n]) gl.uniform1f(u[n], v); };
+const f2 = (u, n, a, b) => { if (u[n]) gl.uniform2f(u[n], a, b); };
+const f3 = (u, n, a) => { if (u[n]) gl.uniform3f(u[n], a[0], a[1], a[2]); };
+const i1 = (u, n, v) => { if (u[n]) gl.uniform1i(u[n], v); };
+let vel, dye, prs, dvg, crl;
+const grid = (base) => {
+const a = canvas.width / canvas.height;
+return a >= 1 ? [Math.round(base * a), base] : [base, Math.round(base / a)];
+};
+const build = () => {
+[vel, dye, prs, dvg, crl].forEach((t) => t && t.free());
+const [sw, sh] = grid(SIM), [dw, dh] = grid(DYE);
+vel = pair(sw, sh, F2, gl.LINEAR);
+dye = pair(dw, dh, F1, gl.LINEAR);
+prs = pair(sw, sh, F1, gl.NEAREST);
+dvg = target(sw, sh, F1, gl.NEAREST);
+crl = target(sw, sh, F1, gl.NEAREST);
+};
+const fit = () => {
+const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+const w = Math.max(2, Math.round(canvas.clientWidth * dpr)), h = Math.max(2, Math.round(canvas.clientHeight * dpr));
+if (w === canvas.width && h === canvas.height) return false;
+canvas.width = w;
+canvas.height = h;
+return true;
+};
+const step = (dt) => {
+const tx = 1 / vel.w, ty = 1 / vel.h;
+let u = use('curl'); f2(u, 'texel', tx, ty); i1(u, 'uVelocity', vel.read.attach(0)); draw(crl);
+u = use('vorticity'); f2(u, 'texel', tx, ty); i1(u, 'uVelocity', vel.read.attach(0)); i1(u, 'uCurl', crl.attach(1));
+f1(u, 'curl', CFG.curl); f1(u, 'dt', dt); draw(vel.write); vel.swap();
+u = use('divergence'); f2(u, 'texel', tx, ty); i1(u, 'uVelocity', vel.read.attach(0)); draw(dvg);
+u = use('scale'); f2(u, 'texel', tx, ty); i1(u, 'uTexture', prs.read.attach(0)); f1(u, 'value', CFG.pressure); draw(prs.write); prs.swap();
+u = use('pressure'); f2(u, 'texel', tx, ty); i1(u, 'uDivergence', dvg.attach(0));
+for (let i = 0; i < CFG.iters; i++) { i1(u, 'uPressure', prs.read.attach(1)); draw(prs.write); prs.swap(); }
+u = use('gradient'); f2(u, 'texel', tx, ty); i1(u, 'uPressure', prs.read.attach(0)); i1(u, 'uVelocity', vel.read.attach(1)); draw(vel.write); vel.swap();
+u = use('advect'); f2(u, 'texel', tx, ty); f1(u, 'dt', dt);
+i1(u, 'uVelocity', vel.read.attach(0)); i1(u, 'uSource', vel.read.attach(0)); f1(u, 'dissipation', CFG.velDiss); draw(vel.write); vel.swap();
+i1(u, 'uVelocity', vel.read.attach(0)); i1(u, 'uSource', dye.read.attach(1)); f1(u, 'dissipation', CFG.dyeDiss); draw(dye.write); dye.swap();
+};
+const aspect = () => canvas.width / canvas.height;
+const splat = (x, y, vx, vy, amount, rmul = 1) => {
+const u = use('splat');
+f1(u, 'aspect', aspect()); f2(u, 'point', x, y); f1(u, 'radius', CFG.radius * rmul);
+i1(u, 'uTarget', vel.read.attach(0)); f3(u, 'color', [vx, vy, 0]); draw(vel.write); vel.swap();
+i1(u, 'uTarget', dye.read.attach(0)); f3(u, 'color', [amount, 0, 0]); draw(dye.write); dye.swap();
+};
+const ripple = (x, y, strength, amount) => {
+const u = use('ring');
+f1(u, 'aspect', aspect()); f2(u, 'point', x, y); f1(u, 'radius', 0.004); f1(u, 'strength', strength);
+i1(u, 'uTarget', vel.read.attach(0)); draw(vel.write); vel.swap();
+splat(x, y, 0, 0, amount, 2.4);
+};
+const SA = rgb01('#b03a72'), SB = rgb01('#b98a3e'), SC = rgb01('#2e8f8c');
+let well = rgb01('#070b16'), paperC = rgb01('#f1f3f1');
+const readColors = () => {
+well = rgb01(cssVar('--well') || '#070b16');
+paperC = rgb01(cssVar('--paper') || '#f1f3f1');
+};
+const render = (now) => {
+const u = use('display');
+i1(u, 'uDye', dye.read.attach(0));
+f2(u, 'texel', 1 / dye.w, 1 / dye.h);
+f2(u, 'res', canvas.width, canvas.height);
+f1(u, 'time', now / 1000);
+f3(u, 'well', well); f3(u, 'paper', paperC);
+f3(u, 'sheenA', SA); f3(u, 'sheenB', SB); f3(u, 'sheenC', SC);
+f1(u, 'edge', Math.min(0.1, (40 * Math.min(window.devicePixelRatio || 1, 1.5)) / canvas.height));
+draw(null);
+};
+const rand = (a, b) => a + Math.random() * (b - a);
+const seed = () => {
+for (let i = 0; i < 5; i++) ripple(rand(0.12, 0.88), rand(0.32, 0.86), rand(110, 170), rand(1.2, 1.8));
+const n = 18, a0 = rand(0, 6.28);
+for (let i = 0; i < n; i++) {
+const ang = a0 + (i / n) * 6.2832;
+splat(0.5 + Math.cos(ang) * 0.28, 0.58 + Math.sin(ang) * 0.2, -Math.sin(ang) * 240, Math.cos(ang) * 240, 0.5);
+}
+for (let i = 0; i < 80; i++) step(1 / 60);
+};
+readColors();
+fit();
+build();
+seed();
+render(performance.now());
+let raf = 0, last = performance.now(), nextDrop = last + 1600, onScreen = true;
+const pointer = { has: false, cx: 0, cy: 0, x: 0, y: 0, vx: 0, vy: 0, moved: false };
+const animating = () => !reduceMQ.matches && onScreen && !document.hidden;
+const frame = (now) => {
+raf = 0;
+if (!animating()) return;
+const dt = Math.min(Math.max((now - last) / 1000, 1 / 240), 1 / 30);
+last = now;
+if (pointer.moved) { splat(pointer.x, pointer.y, pointer.vx, pointer.vy, 0.16, 0.8); pointer.moved = false; }
+if (now > nextDrop) { ripple(rand(0.1, 0.9), rand(0.3, 0.88), rand(90, 150), rand(0.9, 1.5)); nextDrop = now + rand(2400, 4600); }
+step(dt);
+render(now);
+raf = requestAnimationFrame(frame);
+};
+const start = () => {
+if (!raf && animating()) { last = performance.now(); raf = requestAnimationFrame(frame); }
+};
+start();
+hero.addEventListener('pointermove', (e) => {
+if (reduceMQ.matches) return;
+const r = canvas.getBoundingClientRect();
+if (!r.height) return;
+const x = (e.clientX - r.left) / r.width, y = 1 - (e.clientY - r.top) / r.height;
+if (pointer.has) {
+let vx = ((e.clientX - pointer.cx) / r.height) * CFG.force;
+let vy = (-(e.clientY - pointer.cy) / r.height) * CFG.force;
+const m = Math.hypot(vx, vy), max = 900;
+if (m > max) { vx *= max / m; vy *= max / m; }
+pointer.vx = vx; pointer.vy = vy; pointer.moved = true;
+}
+pointer.has = true; pointer.cx = e.clientX; pointer.cy = e.clientY; pointer.x = x; pointer.y = y;
+}, { passive: true });
+hero.addEventListener('pointerleave', () => { pointer.has = false; });
+hero.addEventListener('pointerdown', (e) => {
+if (reduceMQ.matches || e.target.closest('a, button')) return;
+const r = canvas.getBoundingClientRect();
+if (!r.height) return;
+ripple((e.clientX - r.left) / r.width, 1 - (e.clientY - r.top) / r.height, 170, 1.8);
+start();
+});
+if ('IntersectionObserver' in window) {
+new IntersectionObserver((entries) => { onScreen = entries[0].isIntersecting; start(); }).observe(hero);
+}
+document.addEventListener('visibilitychange', start);
+if (reduceMQ.addEventListener) reduceMQ.addEventListener('change', () => { start(); render(performance.now()); });
+let resizeTimer;
+addEventListener('resize', () => {
+clearTimeout(resizeTimer);
+resizeTimer = setTimeout(() => {
+if (fit()) { build(); seed(); render(performance.now()); }
+}, 150);
+});
+const retheme = () => { readColors(); if (!raf) render(performance.now()); };
+const darkMQ = matchMedia('(prefers-color-scheme: dark)');
+if (darkMQ.addEventListener) darkMQ.addEventListener('change', retheme);
+new MutationObserver(retheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+canvas.addEventListener('webglcontextlost', (e) => {
+e.preventDefault();
+cancelAnimationFrame(raf);
+raf = 0;
+fail();
+});
+})();
+})();
+</script>
+</body>
+</html>
